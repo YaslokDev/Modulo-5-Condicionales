@@ -1,7 +1,10 @@
 let puntuacion: number = 0;
+const imagenCarta = document.getElementById("imagenCarta") as HTMLImageElement;
 const btnDameCarta = document.getElementById("dameCarta") as HTMLButtonElement;
 const btnPlantarse = document.getElementById("plantarse") as HTMLButtonElement;
+const btnNuevaPartida = document.getElementById("restart") as HTMLButtonElement;
 const divPuntuacion = document.getElementById("puntuacion");
+const divNuevaPartida = document.getElementById("nuevaPartida");
 
 const muestraPuntuacion = () => {
   if (divPuntuacion !== null) {
@@ -21,7 +24,6 @@ const dameCarta = () => {
 };
 
 const mostrarCarta = (carta: number): void => {
-  const imagenCarta = document.getElementById("imagenCarta") as HTMLImageElement;
   if (imagenCarta) {
     switch (carta) {
       case 1:
@@ -78,6 +80,8 @@ const sumarPuntuacion = (carta: number) => {
   if (puntuacion > 7.5 && divPuntuacion !== null) {
     divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
     btnDameCarta.disabled = true;
+    btnPlantarse.disabled = true;
+    nuevaPartida();
   }
 };
 
@@ -91,8 +95,25 @@ const plantarse = () => {
   } else if ((puntuacion === 6 || puntuacion <= 7) && divPuntuacion !== null) {
     divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. Casi casi...`;
   } else if (puntuacion === 7.5 && divPuntuacion !== null) {
-    divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. ¡ Lo has clavado! ¡Enhorabuena!`;
+    divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. <strong>¡ Lo has clavado! ¡Enhorabuena! 🎉🎉</strong>`;
   }
+  nuevaPartida();
+};
+
+const nuevaPartida = () => {
+  if (divNuevaPartida !== null) {
+    btnNuevaPartida.hidden = false;
+    btnNuevaPartida.addEventListener("click", reiniciar);
+  }
+};
+
+const reiniciar = () => {
+  puntuacion = 0;
+  imagenCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg";
+  btnDameCarta.disabled = false;
+  btnPlantarse.disabled = false;
+  btnNuevaPartida.hidden = true;
+  muestraPuntuacion();
 };
 
 document.addEventListener("DOMContentLoaded", muestraPuntuacion);
