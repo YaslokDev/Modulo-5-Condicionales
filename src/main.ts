@@ -1,5 +1,6 @@
 let puntuacion: number = 0;
 const btnDameCarta = document.getElementById("dameCarta") as HTMLButtonElement;
+const btnPlantarse = document.getElementById("plantarse") as HTMLButtonElement;
 const divPuntuacion = document.getElementById("puntuacion");
 
 const muestraPuntuacion = () => {
@@ -80,5 +81,20 @@ const sumarPuntuacion = (carta: number) => {
   }
 };
 
+const plantarse = () => {
+  btnDameCarta.disabled = true;
+  btnPlantarse.disabled = true;
+  if ((puntuacion <= 4 || puntuacion < 5) && divPuntuacion !== null) {
+    divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. Has sido muy conservador`;
+  } else if ((puntuacion === 5 || puntuacion < 6) && divPuntuacion !== null) {
+    divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. Te ha entrado el canguelo eh?`;
+  } else if ((puntuacion === 6 || puntuacion <= 7) && divPuntuacion !== null) {
+    divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. Casi casi...`;
+  } else if (puntuacion === 7.5 && divPuntuacion !== null) {
+    divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. ¡ Lo has clavado! ¡Enhorabuena!`;
+  }
+};
+
 document.addEventListener("DOMContentLoaded", muestraPuntuacion);
 btnDameCarta?.addEventListener("click", dameCarta);
+btnPlantarse.addEventListener("click", plantarse);
