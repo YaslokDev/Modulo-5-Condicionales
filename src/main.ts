@@ -1,8 +1,8 @@
 let puntuacion: number = 0;
-const btnDameCarta = document.getElementById("dameCarta");
+const btnDameCarta = document.getElementById("dameCarta") as HTMLButtonElement;
+const divPuntuacion = document.getElementById("puntuacion");
 
 const muestraPuntuacion = () => {
-  const divPuntuacion = document.getElementById("puntuacion");
   if (divPuntuacion !== null) {
     divPuntuacion.innerHTML = `Tu puntuación actual es : ${puntuacion.toString()}`;
   }
@@ -74,6 +74,10 @@ const sumarPuntuacion = (carta: number) => {
     puntuacion += carta;
   }
   muestraPuntuacion();
+  if (puntuacion > 7.5 && divPuntuacion !== null) {
+    divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
+    btnDameCarta.disabled = true;
+  }
 };
 
 document.addEventListener("DOMContentLoaded", muestraPuntuacion);
