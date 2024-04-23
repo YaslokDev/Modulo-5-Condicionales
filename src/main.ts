@@ -116,6 +116,7 @@ const verResultado = () => {
   if (puntuacion > 7.5 && divPuntuacion !== null) {
     divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
   }
+  btnVerResultado.hidden = true;
 };
 
 const nuevaPartida = () => {
