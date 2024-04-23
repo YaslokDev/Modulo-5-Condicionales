@@ -96,23 +96,28 @@ const dameCarta = (): void => {
   sumarPuntuacion(cartaGenerada);
 };
 
+const obtenerMensajePuntuacion = (puntuacion: number): string => {
+  if (puntuacion <= 4 || puntuacion < 5) {
+    return "Has sido muy conservador";
+  } else if (puntuacion === 5 || puntuacion < 6) {
+    return "Te ha entrado el canguelo eh?";
+  } else if (puntuacion === 6 || puntuacion <= 7) {
+    return "Casi casi...";
+  } else if (puntuacion === 7.5) {
+    return "<strong>¡Lo has clavado! ¡Enhorabuena! 🎉🎉</strong>";
+  }
+  return "";
+};
+
 const plantarse = (): void => {
   btnDameCarta.disabled = true;
   btnPlantarse.disabled = true;
-  let mensaje = "";
 
-  if (puntuacion <= 4) {
-    mensaje = "Has sido muy conservador";
-  } else if (puntuacion === 5) {
-    mensaje = "Te ha entrado el canguelo eh?";
-  } else if (puntuacion === 6 || puntuacion === 7) {
-    mensaje = "Casi casi...";
-  } else if (puntuacion === 7.5) {
-    mensaje = "<strong>¡ Lo has clavado! ¡Enhorabuena! 🎉🎉</strong>";
-  }
+  const mensaje = obtenerMensajePuntuacion(puntuacion);
+  const mensajeCompleto = `Tu puntuación fue ${puntuacion}. ${mensaje}`;
 
   if (divPuntuacion !== null) {
-    divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. ${mensaje}`;
+    divPuntuacion.innerHTML = mensajeCompleto;
   }
 
   nuevaPartida();
