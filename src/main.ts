@@ -1,9 +1,9 @@
 let puntuacion: number = 0;
-const imagenCarta = document.getElementById("imagenCarta") as HTMLImageElement;
-const btnDameCarta = document.getElementById("dameCarta") as HTMLButtonElement;
-const btnPlantarse = document.getElementById("plantarse") as HTMLButtonElement;
-const btnNuevaPartida = document.getElementById("restart") as HTMLButtonElement;
-const btnVerResultado = document.getElementById("verResultado") as HTMLButtonElement;
+const imagenCarta = document.getElementById("imagenCarta");
+const btnDameCarta = document.getElementById("dameCarta");
+const btnPlantarse = document.getElementById("plantarse");
+const btnNuevaPartida = document.getElementById("restart");
+const btnVerResultado = document.getElementById("verResultado");
 const divPuntuacion = document.getElementById("puntuacion");
 const divNuevaPartida = document.getElementById("nuevaPartida");
 
@@ -47,7 +47,7 @@ const obtenerUrlCarta = (carta: number): string => {
 };
 
 const mostrarCartaEnHTML = (url: string): void => {
-  if (imagenCarta) {
+  if (imagenCarta && imagenCarta instanceof HTMLImageElement) {
     imagenCarta.src = url;
     imagenCarta.classList.add("card-animation");
     imagenCarta.addEventListener(
@@ -83,9 +83,18 @@ const finalizarJuego = (): void => {
   if (divPuntuacion !== null) {
     divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
   }
-  btnDameCarta.disabled = true;
-  btnPlantarse.disabled = true;
-  nuevaPartida();
+  if (
+    btnDameCarta !== null &&
+    btnDameCarta !== undefined &&
+    btnDameCarta instanceof HTMLButtonElement &&
+    btnPlantarse !== null &&
+    btnPlantarse !== undefined &&
+    btnPlantarse instanceof HTMLButtonElement
+  ) {
+    btnDameCarta.disabled = true;
+    btnPlantarse.disabled = true;
+    nuevaPartida();
+  }
 };
 
 const dameCarta = (): void => {
@@ -110,8 +119,17 @@ const obtenerMensajePuntuacion = (puntuacion: number): string => {
 };
 
 const plantarse = (): void => {
-  btnDameCarta.disabled = true;
-  btnPlantarse.disabled = true;
+  if (
+    btnDameCarta !== null &&
+    btnDameCarta !== undefined &&
+    btnDameCarta instanceof HTMLButtonElement &&
+    btnPlantarse !== null &&
+    btnPlantarse !== undefined &&
+    btnPlantarse instanceof HTMLButtonElement
+  ) {
+    btnDameCarta.disabled = true;
+    btnPlantarse.disabled = true;
+  }
 
   const mensaje = obtenerMensajePuntuacion(puntuacion);
   const mensajeCompleto = `Tu puntuación fue ${puntuacion}. ${mensaje}`;
@@ -121,8 +139,10 @@ const plantarse = (): void => {
   }
 
   nuevaPartida();
-  btnVerResultado.hidden = false;
-  btnVerResultado.addEventListener("click", verResultado);
+  if (btnVerResultado !== null && btnVerResultado !== undefined && btnVerResultado instanceof HTMLButtonElement) {
+    btnVerResultado.hidden = false;
+    btnVerResultado.addEventListener("click", verResultado);
+  }
 };
 
 const verResultado = (): void => {
@@ -130,11 +150,18 @@ const verResultado = (): void => {
   if (puntuacion > 7.5 && divPuntuacion !== null) {
     divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
   }
-  btnVerResultado.hidden = true;
+  if (btnVerResultado !== null && btnVerResultado !== undefined && btnVerResultado instanceof HTMLButtonElement) {
+    btnVerResultado.hidden = true;
+  }
 };
 
 const nuevaPartida = (): void => {
-  if (divNuevaPartida !== null) {
+  if (
+    divNuevaPartida !== null &&
+    btnNuevaPartida !== null &&
+    btnNuevaPartida !== undefined &&
+    btnNuevaPartida instanceof HTMLButtonElement
+  ) {
     btnNuevaPartida.hidden = false;
     btnNuevaPartida.addEventListener("click", reiniciar);
   }
@@ -142,14 +169,28 @@ const nuevaPartida = (): void => {
 
 const reiniciar = (): void => {
   puntuacion = 0;
-  imagenCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg";
-  btnDameCarta.disabled = false;
-  btnPlantarse.disabled = false;
-  btnNuevaPartida.hidden = true;
-  btnVerResultado.hidden = true;
+  if (imagenCarta !== null && imagenCarta !== undefined && imagenCarta instanceof HTMLImageElement) {
+    imagenCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg";
+  }
+  if (btnDameCarta !== null && btnDameCarta !== undefined && btnDameCarta instanceof HTMLButtonElement) {
+    btnDameCarta.disabled = false;
+  }
+  if (btnPlantarse !== null && btnPlantarse !== undefined && btnPlantarse instanceof HTMLButtonElement) {
+    btnPlantarse.disabled = false;
+  }
+  if (btnNuevaPartida !== null && btnNuevaPartida !== undefined && btnNuevaPartida instanceof HTMLButtonElement) {
+    btnNuevaPartida.hidden = true;
+  }
+  if (btnVerResultado !== null && btnVerResultado !== undefined && btnVerResultado instanceof HTMLButtonElement) {
+    btnVerResultado.hidden = true;
+  }
   muestraPuntuacion();
 };
 
 document.addEventListener("DOMContentLoaded", muestraPuntuacion);
-btnDameCarta?.addEventListener("click", dameCarta);
-btnPlantarse.addEventListener("click", plantarse);
+if (btnDameCarta !== null && btnDameCarta !== undefined && btnDameCarta instanceof HTMLButtonElement) {
+  btnDameCarta.addEventListener("click", dameCarta);
+}
+if (btnPlantarse !== null && btnPlantarse !== undefined && btnPlantarse instanceof HTMLButtonElement) {
+  btnPlantarse.addEventListener("click", plantarse);
+}
