@@ -3,6 +3,7 @@ const imagenCarta = document.getElementById("imagenCarta") as HTMLImageElement;
 const btnDameCarta = document.getElementById("dameCarta") as HTMLButtonElement;
 const btnPlantarse = document.getElementById("plantarse") as HTMLButtonElement;
 const btnNuevaPartida = document.getElementById("restart") as HTMLButtonElement;
+const btnVerResultado = document.getElementById("verResultado") as HTMLButtonElement;
 const divPuntuacion = document.getElementById("puntuacion");
 const divNuevaPartida = document.getElementById("nuevaPartida");
 
@@ -106,6 +107,15 @@ const plantarse = () => {
     divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. <strong>¡ Lo has clavado! ¡Enhorabuena! 🎉🎉</strong>`;
   }
   nuevaPartida();
+  btnVerResultado.hidden = false;
+  btnVerResultado.addEventListener("click", verResultado);
+};
+
+const verResultado = () => {
+  dameCarta();
+  if (puntuacion > 7.5 && divPuntuacion !== null) {
+    divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
+  }
 };
 
 const nuevaPartida = () => {
@@ -121,6 +131,7 @@ const reiniciar = () => {
   btnDameCarta.disabled = false;
   btnPlantarse.disabled = false;
   btnNuevaPartida.hidden = true;
+  btnVerResultado.hidden = true;
   muestraPuntuacion();
 };
 
