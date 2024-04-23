@@ -14,6 +14,16 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.puntuacion {
+  margin-top: 25px;
+  font-size: 1.5rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+button {
+  margin: 20px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -94,4 +104,17 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.card-animation {
+  animation: fadeIn 1s ease-in-out;
 }

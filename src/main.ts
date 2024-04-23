@@ -66,6 +66,14 @@ const mostrarCarta = (carta: number): void => {
           "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/12_rey-copas.jpg";
         break;
     }
+    imagenCarta.classList.add("card-animation");
+    imagenCarta.addEventListener(
+      "animationend",
+      () => {
+        imagenCarta.classList.remove("card-animation");
+      },
+      { once: true }
+    );
     sumarPuntuacion(carta);
   }
 };
