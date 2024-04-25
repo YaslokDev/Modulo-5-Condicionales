@@ -7,17 +7,10 @@ const btnVerResultado = document.getElementById("verResultado");
 const divPuntuacion = document.getElementById("puntuacion");
 const divNuevaPartida = document.getElementById("nuevaPartida");
 
-const obtenerNumeroAleatorio = (): number => {
-  return Math.floor(Math.random() * 10 + 1);
-};
+const obtenerNumeroAleatorio = (): number => Math.floor(Math.random() * 10 + 1);
 
-const generarNumeroCarta = (numeroAleatorio: number): number => {
-  let cartaGenerada: number = numeroAleatorio;
-  if (cartaGenerada > 7) {
-    cartaGenerada += 2;
-  }
-  return cartaGenerada;
-};
+const generarNumeroCarta = (numeroAleatorio: number): number =>
+  numeroAleatorio > 7 ? numeroAleatorio + 2 : numeroAleatorio;
 
 const obtenerUrlCarta = (carta: number): string => {
   const baseCartaUrl = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/";
@@ -62,13 +55,10 @@ const mostrarCartaEnHTML = (url: string): void => {
   }
 };
 
-const obtenerPuntosCarta = (carta: number): number => {
-  return carta >= 10 ? 0.5 : carta;
-};
+const obtenerPuntosCarta = (carta: number): number => (carta >= 10 ? 0.5 : carta);
 
 const sumarPuntuacion = (carta: number): void => {
-  const puntosCarta = obtenerPuntosCarta(carta);
-  puntuacion += puntosCarta;
+  puntuacion += obtenerPuntosCarta(carta);
   muestraPuntuacion();
   if (puntuacion > 7.5 && divPuntuacion !== null) {
     finalizarJuego();
@@ -125,25 +115,11 @@ const obtenerMensajePuntuacion = (puntuacion: number): string => {
 };
 
 const plantarse = (): void => {
-  if (
-    btnDameCarta !== null &&
-    btnDameCarta !== undefined &&
-    btnDameCarta instanceof HTMLButtonElement &&
-    btnPlantarse !== null &&
-    btnPlantarse !== undefined &&
-    btnPlantarse instanceof HTMLButtonElement
-  ) {
-    btnDameCarta.disabled = true;
-    btnPlantarse.disabled = true;
-  }
-
+  deshabilitarBotones();
   const mensaje = obtenerMensajePuntuacion(puntuacion);
-  const mensajeCompleto = `Tu puntuación fue ${puntuacion}. ${mensaje}`;
-
   if (divPuntuacion !== null) {
-    divPuntuacion.innerHTML = mensajeCompleto;
+    divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. ${mensaje}`;
   }
-
   nuevaPartida();
   if (btnVerResultado !== null && btnVerResultado !== undefined && btnVerResultado instanceof HTMLButtonElement) {
     btnVerResultado.hidden = false;
