@@ -57,12 +57,9 @@ const mostrarCartaEnHTML = (url: string): void => {
 
 const obtenerPuntosCarta = (carta: number): number => (carta >= 10 ? 0.5 : carta);
 
-const sumarPuntuacion = (carta: number): void => {
+const actualizarPuntuacion = (carta: number): void => {
   puntuacion += obtenerPuntosCarta(carta);
   muestraPuntuacion();
-  if (puntuacion > 7.5 && divPuntuacion !== null) {
-    finalizarJuego();
-  }
 };
 
 const muestraPuntuacion = (): void => {
@@ -72,11 +69,13 @@ const muestraPuntuacion = (): void => {
 };
 
 const finalizarJuego = (): void => {
-  if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
-    divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
+  if (puntuacion > 7.5) {
+    if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
+      divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
+    }
+    deshabilitarBotones();
+    nuevaPartida();
   }
-  deshabilitarBotones();
-  nuevaPartida();
 };
 
 const deshabilitarBotones = (): void => {
@@ -98,7 +97,8 @@ const dameCarta = (): void => {
   const cartaGenerada = generarNumeroCarta(numeroAleatorio);
   const urlCarta = obtenerUrlCarta(cartaGenerada);
   mostrarCartaEnHTML(urlCarta);
-  sumarPuntuacion(cartaGenerada);
+  actualizarPuntuacion(cartaGenerada);
+  finalizarJuego();
 };
 
 const obtenerMensajePuntuacion = (puntuacion: number): string => {
