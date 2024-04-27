@@ -66,13 +66,13 @@ const sumarPuntuacion = (carta: number): void => {
 };
 
 const muestraPuntuacion = (): void => {
-  if (divPuntuacion !== null) {
+  if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
     divPuntuacion.innerHTML = `Tu puntuación actual es : ${puntuacion.toString()}`;
   }
 };
 
 const finalizarJuego = (): void => {
-  if (divPuntuacion !== null) {
+  if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
     divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
   }
   deshabilitarBotones();
@@ -117,7 +117,7 @@ const obtenerMensajePuntuacion = (puntuacion: number): string => {
 const plantarse = (): void => {
   deshabilitarBotones();
   const mensaje = obtenerMensajePuntuacion(puntuacion);
-  if (divPuntuacion !== null) {
+  if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
     divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. ${mensaje}`;
   }
   nuevaPartida();
