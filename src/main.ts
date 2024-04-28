@@ -8,13 +8,10 @@ const divPuntuacion = document.getElementById("puntuacion");
 const divNuevaPartida = document.getElementById("nuevaPartida");
 
 const obtenerNumeroAleatorio = (): number => Math.floor(Math.random() * 10 + 1);
-
 const generarNumeroCarta = (numeroAleatorio: number): number =>
   numeroAleatorio > 7 ? numeroAleatorio + 2 : numeroAleatorio;
-
 const obtenerUrlCarta = (carta: number): string => {
   const baseCartaUrl = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/";
-
   switch (carta) {
     case 1:
       return baseCartaUrl + "1_as-copas.jpg";
@@ -59,12 +56,12 @@ const obtenerPuntosCarta = (carta: number): number => (carta >= 10 ? 0.5 : carta
 
 const actualizarPuntuacion = (carta: number): void => {
   puntuacion += obtenerPuntosCarta(carta);
-  muestraPuntuacion();
+  mostrarPuntuacion();
 };
 
-const muestraPuntuacion = (): void => {
+const mostrarPuntuacion = (): void => {
   if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
-    divPuntuacion.innerHTML = `Tu puntuación actual es : ${puntuacion.toString()}`;
+    divPuntuacion.innerHTML = `Tu puntuación actual es: ${puntuacion.toString()}`;
   }
 };
 
@@ -74,7 +71,7 @@ const finalizarJuego = (): void => {
       divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
     }
     deshabilitarBotones();
-    nuevaPartida();
+    mostrarNuevaPartida();
   }
 };
 
@@ -120,7 +117,7 @@ const plantarse = (): void => {
   if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
     divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. ${mensaje}`;
   }
-  nuevaPartida();
+  mostrarNuevaPartida();
   if (btnVerResultado !== null && btnVerResultado !== undefined && btnVerResultado instanceof HTMLButtonElement) {
     btnVerResultado.hidden = false;
     btnVerResultado.addEventListener("click", verResultado);
@@ -137,7 +134,7 @@ const verResultado = (): void => {
   }
 };
 
-const nuevaPartida = (): void => {
+const mostrarNuevaPartida = (): void => {
   if (
     divNuevaPartida !== null &&
     btnNuevaPartida !== null &&
@@ -166,10 +163,10 @@ const reiniciar = (): void => {
   if (btnVerResultado !== null && btnVerResultado !== undefined && btnVerResultado instanceof HTMLButtonElement) {
     btnVerResultado.hidden = true;
   }
-  muestraPuntuacion();
+  mostrarPuntuacion();
 };
 
-document.addEventListener("DOMContentLoaded", muestraPuntuacion);
+document.addEventListener("DOMContentLoaded", mostrarPuntuacion);
 if (btnDameCarta !== null && btnDameCarta !== undefined && btnDameCarta instanceof HTMLButtonElement) {
   btnDameCarta.addEventListener("click", dameCarta);
 }
