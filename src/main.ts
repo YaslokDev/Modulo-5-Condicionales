@@ -39,7 +39,7 @@ const obtenerUrlCarta = (carta: number): string => {
 };
 
 const mostrarCartaEnHTML = (url: string): void => {
-  if (imagenCarta && imagenCarta instanceof HTMLImageElement) {
+  if (imagenCarta != null && imagenCarta !== undefined && imagenCarta instanceof HTMLImageElement) {
     imagenCarta.src = url;
     imagenCarta.classList.add("card-animation");
     imagenCarta.addEventListener(
