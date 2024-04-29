@@ -8,8 +8,10 @@ const divPuntuacion = document.getElementById("puntuacion");
 const divNuevaPartida = document.getElementById("nuevaPartida");
 
 const obtenerNumeroAleatorio = (): number => Math.floor(Math.random() * 10 + 1);
+
 const generarNumeroCarta = (numeroAleatorio: number): number =>
   numeroAleatorio > 7 ? numeroAleatorio + 2 : numeroAleatorio;
+
 const obtenerUrlCarta = (carta: number): string => {
   const baseCartaUrl = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/";
   switch (carta) {
@@ -54,6 +56,12 @@ const mostrarCartaEnHTML = (url: string): void => {
 
 const obtenerPuntosCarta = (carta: number): number => (carta >= 10 ? 0.5 : carta);
 
+const comprobarPuntuacion = (): void => {
+  if (puntuacion > 7.5) {
+    finalizarJuego();
+  }
+};
+
 const actualizarPuntuacion = (carta: number): void => {
   puntuacion += obtenerPuntosCarta(carta);
   mostrarPuntuacion();
@@ -66,13 +74,11 @@ const mostrarPuntuacion = (): void => {
 };
 
 const finalizarJuego = (): void => {
-  if (puntuacion > 7.5) {
-    if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
-      divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
-    }
-    deshabilitarBotones();
-    mostrarNuevaPartida();
+  if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
+    divPuntuacion.innerHTML = `Tu puntuación es ${puntuacion.toString()}, <strong>GAME OVER</strong>`;
   }
+  deshabilitarBotones();
+  mostrarNuevaPartida();
 };
 
 const deshabilitarBotones = (): void => {
@@ -95,7 +101,7 @@ const dameCarta = (): void => {
   const urlCarta = obtenerUrlCarta(cartaGenerada);
   mostrarCartaEnHTML(urlCarta);
   actualizarPuntuacion(cartaGenerada);
-  finalizarJuego();
+  comprobarPuntuacion();
 };
 
 const obtenerMensajePuntuacion = (puntuacion: number): string => {
@@ -117,6 +123,7 @@ const plantarse = (): void => {
   if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
     divPuntuacion.innerHTML = `Tu puntuación fue ${puntuacion}. ${mensaje}`;
   }
+  comprobarPuntuacion();
   mostrarNuevaPartida();
   if (btnVerResultado !== null && btnVerResultado !== undefined && btnVerResultado instanceof HTMLButtonElement) {
     btnVerResultado.hidden = false;
